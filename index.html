@@ -28,12 +28,18 @@
   --teal: #19e3d0;         /* Victoria Reach */
   --gold: #ffb547;         /* San Lazaro */
   --ice: #9fd2ff;          /* Kaigan */
+  --text-2: #c3ccd5;       /* body copy on panels */
   --act: var(--teal);
   --f-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 * { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+::selection { background: var(--signal); color: #fff; }
+html { scrollbar-color: var(--steel) var(--ink); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   background: var(--ink);
   color: var(--paper);
@@ -95,8 +101,7 @@ a { color: inherit; }
 .chip.vr { color: var(--teal); } .chip.sl { color: var(--gold); } .chip.kg { color: var(--ice); } .chip.sea { color: var(--fog); }
 
 /* ---------- trailer ---------- */
-.trailer { padding-block: 56px 72px; }
-.trailer .head { margin-bottom: 24px; }
+.trailer { padding-block: 48px 72px; }
 .screen { position: relative; border: 1px solid var(--steel); background: #000; box-shadow: 0 0 60px rgba(255,59,92,0.12), 0 0 120px rgba(25,227,208,0.08); }
 .screen video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
 .screen-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-top: 12px; }
@@ -104,6 +109,7 @@ a { color: inherit; }
 /* ---------- generic sections ---------- */
 section { padding-block: 80px; border-bottom: 1px solid var(--steel); }
 .head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 720px; }
+.head p { max-width: 64ch; }
 .head h2 { font-size: clamp(44px, 7vw, 76px); font-weight: 800; text-transform: uppercase; }
 .head p { color: var(--fog); font-size: 17px; }
 .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--act); }
@@ -118,6 +124,7 @@ section { padding-block: 80px; border-bottom: 1px solid var(--steel); }
 /* ---------- route map ---------- */
 .route { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center; }
 .route svg { width: 100%; height: auto; display: block; }
+@media (max-width: 600px) { .route .coords { display: none; } }
 .legs { display: grid; gap: 18px; }
 .leg { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: baseline; }
 .leg .n { font-family: var(--f-display); font-size: 30px; font-weight: 700; line-height: 1; }
@@ -127,6 +134,12 @@ section { padding-block: 80px; border-bottom: 1px solid var(--steel); }
 
 /* ---------- cast ---------- */
 .castgroup { display: grid; gap: 16px; }
+.grouphead { font-family: var(--f-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); line-height: 1.4; }
+.cast.hunters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .cast.hunters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .cast.hunters { grid-template-columns: 1fr; } }
+.card.boss h3 { font-size: 34px; }
+.card.boss { border-top: 2px solid var(--signal); }
 .castgroup + .castgroup { margin-top: 40px; }
 .cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
 .card {
@@ -134,12 +147,18 @@ section { padding-block: 80px; border-bottom: 1px solid var(--steel); }
 }
 .card .who { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
 .card h3 { font-size: 28px; font-weight: 700; text-transform: uppercase; }
-.card .tag { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+.card .tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
 .card .role { font-family: var(--f-mono); font-size: 12px; color: var(--fog); text-transform: uppercase; letter-spacing: 0.06em; }
-.card p { font-size: 15px; color: #c3ccd5; }
-.lead { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px; border-color: var(--signal); }
-.lead h3 { font-size: 48px; }
-@media (max-width: 700px) { .lead { grid-template-columns: 1fr; } }
+.card p { font-size: 15px; color: var(--text-2); }
+.lead { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0; padding: 0; border-color: var(--signal); overflow: hidden; }
+.lead figure { margin: 0; position: relative; min-height: 320px; background: #000; }
+.lead figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; }
+.lead .body { padding: 28px; display: grid; gap: 14px; align-content: center; }
+.lead h3 { font-size: 56px; }
+.lead .gloss { font-size: 14px; color: var(--fog); }
+.pen { margin: 4px 0 0; padding: 0; font-family: var(--f-display); font-size: 26px; font-weight: 700; line-height: 1.1; text-transform: uppercase; color: var(--paper); }
+.pen span { color: var(--signal); }
+@media (max-width: 760px) { .lead { grid-template-columns: 1fr; } .lead figure { aspect-ratio: 16 / 9; min-height: 0; } .lead h3 { font-size: 44px; } }
 .t-vr { color: var(--teal); } .t-sl { color: var(--gold); } .t-kg { color: var(--ice); } .t-x { color: var(--signal); }
 
 /* ---------- acts ---------- */
@@ -157,23 +176,26 @@ section { padding-block: 80px; border-bottom: 1px solid var(--steel); }
 .actno { font-family: var(--f-display); font-weight: 900; font-size: clamp(64px, 11vw, 132px); color: var(--act); line-height: 0.85; text-shadow: 0 0 30px color-mix(in srgb, var(--act) 45%, transparent); }
 .acthead { display: grid; gap: 14px; margin-bottom: 40px; }
 .acthead h2 { font-size: clamp(38px, 6vw, 64px); font-weight: 800; text-transform: uppercase; }
-.acthead .vibe { color: var(--fog); max-width: 720px; font-size: 16px; }
+.acthead h2 .sub { color: var(--act); }
+@media (max-width: 640px) { .acthead h2 .sep { display: none; } .acthead h2 .sub { display: block; font-size: 0.62em; margin-top: 6px; } }
+.acthead .vibe { color: var(--fog); max-width: 64ch; font-size: 16px; }
 .actgrid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; }
 @media (max-width: 860px) { .actgrid { grid-template-columns: 1fr; } }
 ol.beats { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; counter-reset: beat; }
 ol.beats li { counter-increment: beat; display: grid; grid-template-columns: 36px 1fr; gap: 12px; }
 ol.beats li::before { content: counter(beat, decimal-leading-zero); font-family: var(--f-mono); font-size: 13px; color: var(--act); padding-top: 3px; }
 ol.beats b { color: var(--paper); font-weight: 600; }
-ol.beats span { color: #c3ccd5; }
+ol.beats span { color: var(--text-2); }
 .climax { margin-top: 24px; border: 1px solid var(--act); padding: 18px 20px; display: grid; gap: 6px; background: color-mix(in srgb, var(--act) 7%, var(--hull)); }
 .climax .mono { color: var(--act); }
+.climax > header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
 .climax h3 { font-size: 30px; font-weight: 800; text-transform: uppercase; }
-.climax p { color: #c3ccd5; font-size: 15px; }
+.climax p { color: var(--text-2); font-size: 15px; }
 aside.side { display: grid; gap: 24px; align-content: start; }
 .panel { border-top: 2px solid var(--act); padding-top: 14px; display: grid; gap: 10px; }
 .panel h4 { margin: 0; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--act); font-weight: 500; }
 .panel ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.panel li { font-size: 15px; color: #c3ccd5; padding-left: 16px; position: relative; }
+.panel li { font-size: 15px; color: var(--text-2); padding-left: 16px; position: relative; }
 .panel li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 7px; height: 2px; background: var(--act); }
 .panel li b { color: var(--paper); font-weight: 600; }
 .radio { font-family: var(--f-mono); font-size: 13px; color: var(--paper); }
@@ -181,19 +203,19 @@ aside.side { display: grid; gap: 24px; align-content: start; }
 /* car scene grid */
 .cars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--steel); border: 1px solid var(--steel); margin-top: 40px; }
 .cars > div { background: var(--hull); padding: 20px; display: grid; gap: 8px; align-content: start; min-width: 0; }
-.cars .k { font-family: var(--f-mono); font-size: 12px; color: var(--ice); letter-spacing: 0.08em; text-transform: uppercase; }
+.cars .k { order: 0; font-family: var(--f-mono); font-size: 12px; color: var(--ice); letter-spacing: 0.08em; text-transform: uppercase; }
 .cars h3 { font-size: 26px; font-weight: 700; text-transform: uppercase; }
-.cars p { font-size: 14px; color: #c3ccd5; }
+.cars p { font-size: 14px; color: var(--text-2); }
 
 /* offers + endings */
 .offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 8px; }
-.offer { border: 1px dashed var(--steel); padding: 14px 16px; display: grid; gap: 4px; }
+.offer { border: 1px solid var(--steel); padding: 14px 16px; display: grid; gap: 4px; }
 .offer b { font-family: var(--f-display); font-size: 22px; text-transform: uppercase; font-weight: 700; }
-.offer span { font-size: 14px; color: #c3ccd5; }
-.endings { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.offer span { font-size: 14px; color: var(--text-2); }
+.endings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
 .ending { background: var(--hull); border: 1px solid var(--steel); padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
 .ending h3 { font-size: 32px; font-weight: 800; text-transform: uppercase; }
-.ending p { font-size: 15px; color: #c3ccd5; }
+.ending p { font-size: 15px; color: var(--text-2); }
 .ending .shot { font-style: italic; color: var(--paper); border-left: 2px solid currentColor; padding-left: 12px; font-size: 15px; }
 .ending.burn { grid-column: 1 / -1; border-color: var(--signal); background: color-mix(in srgb, var(--signal) 8%, var(--hull)); }
 .ending.burn h3 { color: var(--signal); font-size: 44px; }
@@ -202,7 +224,7 @@ aside.side { display: grid; gap: 24px; align-content: start; }
 .looks { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 .look { padding: 22px; border: 1px solid var(--steel); display: grid; gap: 10px; align-content: start; background: var(--hull); }
 .look h3 { font-size: 30px; font-weight: 800; text-transform: uppercase; }
-.look p { font-size: 15px; color: #c3ccd5; }
+.look p { font-size: 15px; color: var(--text-2); }
 .swatches { display: flex; gap: 6px; }
 .swatches i { width: 28px; height: 28px; border-radius: 2px; display: block; border: 1px solid rgba(255,255,255,0.12); }
 .note { margin-top: 24px; color: var(--fog); font-size: 15px; }
@@ -217,26 +239,80 @@ aside.side { display: grid; gap: 24px; align-content: start; }
 .mlist li { display: grid; grid-template-columns: 64px minmax(0, 220px) minmax(0, 1fr) 96px; gap: 4px 16px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--steel); }
 .mlist .id { font-family: var(--f-mono); font-size: 12px; color: var(--act); font-variant-numeric: tabular-nums; }
 .mlist .nm { font-family: var(--f-display); font-size: 21px; font-weight: 700; text-transform: uppercase; line-height: 1.1; }
-.mlist .ds { font-size: 14px; color: #c3ccd5; }
-.mlist .ty { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fog); text-align: right; }
+.mlist .ds { font-size: 14px; color: var(--text-2); }
+.mlist .ty { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fog); text-align: right; }
 .mlist li.big .nm { color: var(--act); }
-.mlist .ch { color: var(--signal); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 6px; white-space: nowrap; }
+.mlist .ch { color: var(--signal); font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 6px; white-space: nowrap; }
 @media (max-width: 760px) {
-  .mlist li { grid-template-columns: 56px minmax(0, 1fr) auto; }
-  .mlist .ds { grid-column: 2 / -1; }
+  .mlist li { grid-template-columns: 56px minmax(0, 1fr); }
+  .mlist .id { grid-row: 1 / span 3; }
+  .mlist .nm { grid-column: 2; }
+  .mlist .ty { grid-column: 2; grid-row: 2; text-align: left; color: var(--act); }
+  .mlist .ds { grid-column: 2; grid-row: 3; }
 }
 .choices { margin-top: 48px; overflow-x: auto; border: 1px solid var(--steel); }
 .choices table { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 14px; }
 .choices th, .choices td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--steel); vertical-align: top; }
-.choices th { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fog); font-weight: 500; background: var(--hull); }
+.choices th { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fog); font-weight: 500; background: var(--hull); }
 .choices td:first-child { font-family: var(--f-display); font-size: 18px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
-.choices td { color: #c3ccd5; }
+.choices td { color: var(--text-2); }
 .choices tr:last-child td { border-bottom: 0; }
+.choices caption { caption-side: top; text-align: left; padding: 14px 16px; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); background: var(--hull); border-bottom: 1px solid var(--steel); }
+@media (max-width: 640px) {
+  .choices { overflow: visible; }
+  .choices table { min-width: 0; }
+  .choices thead { display: none; }
+  .choices table, .choices tbody, .choices tr, .choices td { display: block; }
+  .choices tr { padding: 14px 16px; border-bottom: 1px solid var(--steel); }
+  .choices tr:last-child { border-bottom: 0; }
+  .choices td { padding: 2px 0; border: 0; }
+  .choices td + td::before { content: attr(data-label) "  "; display: block; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fog); margin-top: 8px; }
+}
+
+/* ---------- closer ---------- */
+.closer { position: relative; padding: 0; border-bottom: 1px solid var(--steel); overflow: hidden; background: #000; }
+.closer img { display: block; width: 100%; height: min(78vh, 760px); object-fit: cover; object-position: 50% 45%; opacity: 0.62; }
+.closer::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,8,11,0.15) 0%, rgba(6,8,11,0.35) 45%, var(--ink) 100%); pointer-events: none; }
+.closer .wrap { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: 72px; z-index: 1; display: grid; gap: 22px; }
+.closer h2 { font-size: clamp(44px, 8vw, 112px); font-weight: 900; text-transform: uppercase; max-width: 14ch; }
+.closer h2 span { color: var(--signal); text-shadow: 0 0 28px rgba(255,59,92,0.55); }
+.closer p { color: var(--text-2); font-size: 18px; max-width: 52ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { appearance: none; font: 500 15px/1 var(--f-body); padding: 14px 20px; border-radius: 4px; border: 1px solid var(--signal); background: var(--signal); color: #0a0d11; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, transform 120ms ease-out; }
+.btn:hover { background: #ff5572; border-color: #ff5572; }
+.btn:active { transform: translateY(1px); }
+.btn.ghost { background: transparent; color: var(--paper); border-color: rgba(233,238,242,0.28); }
+.btn.ghost:hover { border-color: var(--paper); background: rgba(233,238,242,0.06); }
+.btn svg { width: 16px; height: 16px; }
+@media (max-width: 640px) { .closer img { height: 92vh; } .closer .wrap { padding-bottom: 96px; } }
+
+/* ---------- mission log appendix ---------- */
+details.log > summary { list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 20px 24px; border: 1px solid var(--steel); background: var(--hull); transition: border-color 160ms ease-out; }
+details.log > summary::-webkit-details-marker { display: none; }
+details.log > summary:hover { border-color: rgba(255,59,92,0.5); }
+details.log > summary .meta { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); }
+details.log > summary .open { font-family: var(--f-mono); font-size: 13px; color: var(--signal); display: inline-flex; align-items: center; gap: 8px; }
+details.log > summary .open svg { width: 14px; height: 14px; transition: transform 200ms ease-out; }
+details.log[open] > summary .open svg { transform: rotate(180deg); }
+details.log[open] > summary .open .when-closed, details.log:not([open]) > summary .open .when-open { display: none; }
+details.log .logbody { padding-top: 40px; }
+
+/* ---------- act index ---------- */
+.index { position: fixed; z-index: 20; left: 50%; top: 12px; transform: translate(-50%, -8px); opacity: 0; pointer-events: none; transition: opacity 200ms ease-out, transform 200ms ease-out;
+  display: flex; gap: 2px; padding: 4px; background: rgba(6,8,11,0.94); border: 1px solid var(--steel); border-radius: 6px; }
+.index.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.index a { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); text-decoration: none; padding: 7px 10px; border-radius: 4px; transition: color 160ms ease-out, background-color 160ms ease-out; }
+.index a:hover { color: var(--paper); background: var(--hull); }
+.index a[aria-current="true"] { color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+@media (max-width: 640px) { .index { top: auto; bottom: max(10px, env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 8px); } .index.on { transform: translate(-50%, 0); } .index a { padding: 7px 7px; font-size: 11px; letter-spacing: 0.04em; } }
+@media (prefers-reduced-motion: reduce) { .index, .btn, details.log > summary .open svg { transition: none; } }
 
 footer { padding-block: 48px 64px; }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+@media (max-width: 640px) { footer { padding-bottom: 96px; } }
 
 @media (prefers-reduced-motion: reduce) { #rain { display: none; } }
+@media (max-width: 640px) { .choices caption { display: block; width: auto; } }
 </style>
 
 <header class="hero">
@@ -260,28 +336,37 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </div>
 </header>
 
+<nav class="index" aria-label="Sections">
+  <a href="#prologue" style="--c: var(--signal)">Pro</a>
+  <a href="#crew" style="--c: var(--paper)">Crew</a>
+  <a href="#act-1" style="--c: var(--teal)">I</a>
+  <a href="#sea" style="--c: var(--fog)">Sea</a>
+  <a href="#act-2" style="--c: var(--gold)">II</a>
+  <a href="#act-3" style="--c: var(--ice)">III</a>
+  <a href="#finale" style="--c: var(--signal)">Fin</a>
+  <a href="#log" style="--c: var(--signal)">Log</a>
+</nav>
+
 <main>
   <!-- trailer -->
-  <section class="trailer" style="--act: var(--signal)">
+  <section class="trailer" id="trailer-section" style="--act: var(--signal)">
     <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Teaser trailer</span>
-        <h2>Every box has a number</h2>
-      </div>
       <div class="screen">
-        <video controls playsinline preload="metadata" poster="media/poster.jpg">
+        <video id="trailer" controls playsinline preload="metadata" poster="media/poster.jpg" aria-label="MANIFEST teaser trailer, 1 minute 30 seconds">
           <source src="media/manifest_teaser.mp4" type="video/mp4">
+          <track kind="captions" srclang="en" label="English" src="media/manifest_teaser.vtt">
+          <p>The trailer couldn't play here. <a href="media/manifest_teaser.mp4">Download the MP4</a> instead.</p>
         </video>
       </div>
       <div class="screen-meta mono">
-        <span>Runtime <b style="color:var(--paper);font-weight:500">1:30</b></span>
-        <span>Victoria Reach · San Lazaro · Kaigan</span>
+        <span>Teaser trailer</span>
+        <span>1:30 · Captions in the player menu</span>
       </div>
     </div>
   </section>
 
   <!-- the blackout -->
-  <section style="--act: var(--signal)">
+  <section id="prologue" data-c="var(--signal)" style="--act: var(--signal)">
     <div class="wrap">
       <div class="head">
         <span class="eyebrow">Prologue · Signed For</span>
@@ -307,7 +392,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <g stroke="#1b232d" stroke-width="1" fill="none">
           <path d="M0 95 H600 M0 190 H600 M0 285 H600 M150 0 V380 M300 0 V380 M450 0 V380"/>
         </g>
-        <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#4a5664" letter-spacing="1">
+        <g class="coords" font-family="IBM Plex Mono, monospace" font-size="11" fill="#7d8996" letter-spacing="1">
           <text x="6" y="90">25°N</text><text x="6" y="185">20°N</text><text x="6" y="280">15°N</text>
           <text x="154" y="374">115°E</text><text x="304" y="374">125°E</text><text x="454" y="374">135°E</text>
         </g>
@@ -332,34 +417,35 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="leg"><span class="n t-vr">I</span><div><h3>Victoria Reach</h3><p>Find out who cut the box. Run from the Cheungs.</p></div></div>
         <div class="leg"><span class="n t-sl">II</span><div><h3>San Lazaro</h3><p>Find the box and learn what's inside, in typhoon season.</p></div></div>
         <div class="leg"><span class="n t-kg">III</span><div><h3>Kaigan</h3><p>Hold the drive. Race the midnight highway.</p></div></div>
-        <div class="leg"><span class="n t-x">IV</span><div><h3>The eye of the storm</h3><p>Back on the ship where it started. Decide who gets it.</p></div></div>
+        <div class="leg"><span class="n t-x">IV</span><div><h3>The real manifest</h3><p>Back on the ship where it started. Decide who gets it.</p></div></div>
       </div>
     </div>
   </section>
 
   <!-- cast -->
-  <section>
+  <section id="crew" data-c="var(--paper)">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow" style="color: var(--signal)">Crew list</span>
         <h2>The cast</h2>
       </div>
 
       <div class="castgroup">
         <div class="cast">
           <article class="card lead">
-            <div class="who" style="display:grid; gap:8px">
+            <figure><img src="media/ren.jpg" alt="Ren Castillo, soaked, crouched between rusty containers on a ship's deck at night, holding a small hard drive" loading="lazy" width="1200" height="536"></figure>
+            <div class="body">
               <span class="role">Supercargo · Age 34</span>
               <h3>Ren Castillo</h3>
-              <span class="tag t-x">Lead</span>
+              <p class="gloss">Supercargo: the officer aboard who answers for the cargo on the owner's behalf.</p>
+              <p>Half-Filipino, half-Japanese, raised in the lanes of Victoria Reach. His mother sold fish in a wet market, and his father was a Japanese deckhand who left one season and never came back. He speaks four languages and isn't fully at home in any of them. He wears a worn Meridian officer's jacket over dark streetwear and still carries a steel manifest clipboard.</p>
+              <p class="pen">Before he signs anything, he clicks his pen <span>three times</span>.</p>
             </div>
-            <p>Half-Filipino, half-Japanese, raised in the lanes of Victoria Reach. His mother sold fish in a wet market, and his father was a Japanese deckhand who left one season and never came back. He speaks four languages and isn't fully at home in any of them. He wears a worn Meridian officer's jacket over dark streetwear and still carries a steel manifest clipboard. Before he signs anything, he clicks his pen three times.</p>
           </article>
         </div>
       </div>
 
       <div class="castgroup">
-        <span class="mono">Allies, sort of</span>
+        <h3 class="grouphead">Allies, sort of</h3>
         <div class="cast">
           <article class="card"><div class="who"><h3>Static</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Neon bender · Pirate DJ</span><p>Fei Chan, 22, is one of the last apprentices bending neon tubes by hand. At night she runs a pirate radio station from a rooftop full of antennas. She jams cameras, hijacks billboards and talks you through every heist.</p></article>
           <article class="card"><div class="who"><h3>Tita Joy</h3><span class="tag t-sl">San Lazaro</span></div><span class="role">Jeepney queen · Smuggler</span><p>Joy Dimaculangan owns 40 jeepneys, the karaoke bar Bituin and half the smuggling at the North Harbor. She's loud and generous, and she's terrifying when crossed. She knew Ren's mother.</p></article>
@@ -369,13 +455,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
 
       <div class="castgroup">
-        <span class="mono">Hunting Ren</span>
-        <div class="cast">
-          <article class="card"><div class="who"><h3>The Auditor</h3><span class="tag t-x">Meridian Line</span></div><span class="role">Grant Halloway · Asset recovery</span><p>He's soft-spoken, always in grey and never raises his voice. He doesn't kill anyone himself; he just calls the families and tells them where you are.</p></article>
-          <article class="card"><div class="who"><h3>Madam Cheung</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Matriarch · Finance house</span><p>She turned a triad into a glass-tower finance house and still settles disputes over a mahjong table.</p></article>
-          <article class="card"><div class="who"><h3>Lucky Cheung</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Heir · Supercar scene</span><p>He races the Peak road at 3 a.m. He's reckless and loud, and he's smarter than he lets on.</p></article>
+        <h3 class="grouphead">Hunting Ren</h3>
+        <div class="cast hunters">
+          <article class="card boss"><div class="who"><h3>The Auditor</h3><span class="tag t-x">Meridian Line</span></div><span class="role">Grant Halloway · Asset recovery</span><p>He's soft-spoken, always in grey and never raises his voice. He doesn't kill anyone himself; he just calls the families and tells them where you are.</p></article>
+          <article class="card boss"><div class="who"><h3>Madam Cheung</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Matriarch · Finance house</span><p>She turned a triad into a glass-tower finance house and still settles disputes over a mahjong table.</p></article>
+          <article class="card boss"><div class="who"><h3>Kuroda Shinji</h3><span class="tag t-kg">Kaigan</span></div><span class="role">Oyabun turned CEO</span><p>He has erased every tattooed face from his past. The container could erase him.</p></article>
           <article class="card"><div class="who"><h3>The Valderramas</h3><span class="tag t-sl">San Lazaro</span></div><span class="role">Senator Aurelio · Migo</span><p>The father owns the docks. The son is running for mayor on a "clean port" campaign paid for with dirty money.</p></article>
-          <article class="card"><div class="who"><h3>Kuroda Shinji</h3><span class="tag t-kg">Kaigan</span></div><span class="role">Oyabun turned CEO</span><p>He has erased every tattooed face from his past. The container could erase him.</p></article>
+          <article class="card"><div class="who"><h3>Lucky Cheung</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Heir · Supercar scene</span><p>He races the Peak road at 3 a.m. He's reckless and loud, and he's smarter than he lets on.</p></article>
           <article class="card"><div class="who"><h3>Inspector Santos</h3><span class="tag t-x">Task Force Tide</span></div><span class="role">Leila Santos</span><p>She's sharp, tired and incorruptible, and she's the only cop who believes Ren is innocent. That makes her dangerous to everyone.</p></article>
         </div>
       </div>
@@ -383,11 +469,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </section>
 
   <!-- ACT 1 -->
-  <section class="act act-vr">
+  <section class="act act-vr" id="act-1" data-c="var(--teal)">
     <div class="wrap">
       <div class="acthead">
         <span class="actno">ACT I</span>
-        <h2>Victoria Reach · Neon &amp; Debt</h2>
+        <h2>Victoria Reach<span class="sep"> · </span><span class="sub">Neon &amp; Debt</span></h2>
         <p class="vibe">Teal and red neon on wet streets. Minibuses with glowing speed displays, rooftop villages, diners open all night, mahjong behind steel gates, and the harbour ferry horn at midnight.</p>
       </div>
       <div class="actgrid">
@@ -400,8 +486,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li><div><b>The footage.</b> <span>Eleven seconds of video show a woman in a Meridian uniform dropping the box onto a trawler. Ren knows her: Nami Okabe, his ex.</span></div></li>
           </ol>
           <div class="climax">
-            <span class="mono">Act climax</span>
-            <h3>Ferry Crossing</h3>
+            <header><h3>Ferry Crossing</h3><span class="mono">Act climax</span></header>
             <p>The Auditor tips off the Cheungs and the police on the same night. The chase runs from the Peak road through the market lanes and onto the harbour, ending on a stolen speedboat heading for open sea.</p>
           </div>
         </div>
@@ -415,7 +500,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </section>
 
   <!-- SEA -->
-  <section class="act act-sea">
+  <section class="act act-sea" id="sea" data-c="var(--fog)">
     <div class="wrap">
       <div class="acthead" style="margin-bottom:0">
         <span class="eyebrow">Interlude · The sea</span>
@@ -426,11 +511,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </section>
 
   <!-- ACT 2 -->
-  <section class="act act-sl">
+  <section class="act act-sl" id="act-2" data-c="var(--gold)">
     <div class="wrap">
       <div class="acthead">
         <span class="actno">ACT II</span>
-        <h2>San Lazaro · Typhoon Season</h2>
+        <h2>San Lazaro<span class="sep"> · </span><span class="sub">Typhoon Season</span></h2>
         <p class="vibe">Hazy gold sunsets through smog. Jeepneys covered in chrome horses and painted saints, tricycles, karaoke bars, basketball courts under every overpass, thrift markets and street fiestas.</p>
       </div>
       <div class="actgrid">
@@ -443,8 +528,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li><div><b>The rally.</b> <span>Migo's mayoral rally pulls the pier's security to the stadium. Use the night to get onto the pier, or take the hit on Migo the Cheungs are paying for. This is the first forced betrayal.</span></div></li>
           </ol>
           <div class="climax">
-            <span class="mono">Act climax</span>
-            <h3>Signal 4</h3>
+            <header><h3>Signal 4</h3><span class="mono">Act climax</span></header>
             <p>The worst typhoon in a decade hits the city. Power and cameras die, and the port closes. Ren pulls a container out of the Valderrama warehouse with a stolen crane in 150 km/h wind and gets the drive, but Nami is taken. A note is left at the bar: <i>"Bring it to Kaigan. K."</i></p>
           </div>
         </div>
@@ -458,11 +542,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </section>
 
   <!-- ACT 3 -->
-  <section class="act act-kg">
+  <section class="act act-kg" id="act-3" data-c="var(--ice)">
     <div class="wrap">
       <div class="acthead">
         <span class="actno">ACT III</span>
-        <h2>Kaigan · Midnight Highway</h2>
+        <h2>Kaigan<span class="sep"> · </span><span class="sub">Midnight Highway</span></h2>
         <p class="vibe">Cold white and blue light. Vending machines glowing on empty streets, convenience stores at 4 a.m., rain on scramble crossings, six-seat bars, pachinko halls, expressways stacked three high and a bay bridge lit like a circuit board.</p>
       </div>
       <div class="actgrid">
@@ -475,8 +559,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li><div><b>The offers.</b> <span>Every faction makes its pitch at once.</span></div></li>
           </ol>
           <div class="climax">
-            <span class="mono">Act climax</span>
-            <h3>Wangan Midnight</h3>
+            <header><h3>Wangan Midnight</h3><span class="mono">Act climax</span></header>
             <p>Everyone moves on the same night. The whole Shinkai crew runs interference across the bay expressway while Ren carries the drive to the docked <i>Meridian Aurora</i>, the only way out of the country.</p>
           </div>
         </div>
@@ -488,17 +571,17 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
 
       <div class="cars" aria-label="The Kaigan car scene">
-        <div><span class="k">00:00 · Hub</span><h3>Bayside PA</h3><p>A huge parking area under the bay bridge where hundreds of tuned cars meet at midnight. Show cars, trade parts and pick up races.</p></div>
-        <div><span class="k">300 km/h</span><h3>Highway runs</h3><p>Top-speed runs on the bayshore expressway, threading through night truck traffic.</p></div>
-        <div><span class="k">Hairpins</span><h3>Mountain pass</h3><p>Technical downhill drift battles on a road outside the city.</p></div>
-        <div><span class="k">Chrome</span><h3>Art trucks</h3><p>Huge trucks lit like moving shrines. You can hide cargo in plain sight.</p></div>
-        <div><span class="k">Build</span><h3>Pops' garage</h3><p>Deep tuning under the expressway. You finish the game in your own build.</p></div>
+        <div><h3>Bayside PA</h3><span class="k">00:00 · Hub</span><p>A huge parking area under the bay bridge where hundreds of tuned cars meet at midnight. Show cars, trade parts and pick up races.</p></div>
+        <div><h3>Highway runs</h3><span class="k">300 km/h</span><p>Top-speed runs on the bayshore expressway, threading through night truck traffic.</p></div>
+        <div><h3>Mountain pass</h3><span class="k">Hairpins</span><p>Technical downhill drift battles on a road outside the city.</p></div>
+        <div><h3>Art trucks</h3><span class="k">Chrome</span><p>Huge trucks lit like moving shrines. You can hide cargo in plain sight.</p></div>
+        <div><h3>Pops' garage</h3><span class="k">Build</span><p>Deep tuning under the expressway. You finish the game in your own build.</p></div>
       </div>
     </div>
   </section>
 
   <!-- FINALE -->
-  <section class="act act-fin">
+  <section class="act act-fin" id="finale" data-c="var(--signal)">
     <div class="wrap">
       <div class="acthead">
         <span class="actno">FINALE</span>
@@ -528,15 +611,30 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
+  <!-- CLOSER -->
+  <section class="closer" aria-labelledby="closer-title">
+    <img src="media/eye.jpg" alt="Gloved hands on a ship's wheel under red emergency light, steering toward the eye of a typhoon" loading="lazy" width="1600" height="716">
+    <div class="wrap">
+      <h2 id="closer-title">Every box has a <span>number</span></h2>
+      <p>Ren signed for MRDU 771204. Three cities, five endings, one drive. Watch it again before the stacks go dark.</p>
+      <div class="actions">
+        <a class="btn" href="#trailer-section" data-play><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>Watch the trailer again</a>
+        <a class="btn ghost" href="#log" data-openlog>Open the mission log</a>
+      </div>
+    </div>
+  </section>
+
   <!-- MISSIONS -->
-  <section style="--act: var(--signal)">
+  <section id="log" data-c="var(--signal)" style="--act: var(--signal)">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">Mission manifest</span>
-        <h2>40 story missions</h2>
-        <p>A prologue, three acts, a sea crossing and a three-part finale. Missions marked <span style="color:var(--signal)">⚖ choice</span> shift your standing with the factions.</p>
+        <h2>Mission log</h2>
+        <p>A prologue, three acts, a sea crossing and a three-part finale. Missions marked <span style="color:var(--signal)">Choice</span> shift your standing with the factions.</p>
       </div>
 
+      <details class="log" id="mission-log">
+        <summary><span class="meta">40 missions · 7 choices · 5 endings</span><span class="open"><span class="when-closed">Open the log</span><span class="when-open">Close the log</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></span></summary>
+        <div class="logbody">
       <div class="chapters">
         <div class="chapter" style="--act: var(--signal)">
           <header><h3>Prologue · Signed For</h3><span class="mono">3 missions</span></header>
@@ -552,13 +650,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <ol class="mlist">
             <li><span class="id">VR-01</span><span class="nm">Mansion Block</span><span class="ds">Reach his mother's old flat and meet the tenant on every floor. Unlocks the safehouse and wardrobe.</span><span class="ty">Explore</span></li>
             <li><span class="id">VR-02</span><span class="nm">Dead Air</span><span class="ds">Tune Ren's radio across the rooftops to find a pirate signal, then follow it to Static.</span><span class="ty">Explore</span></li>
-            <li><span class="id">VR-03</span><span class="nm">The Neon Job<span class="ch">⚖ choice</span></span><span class="ds">Lift the hand-bent sign from a Cheung tea house. Return it to Static or sell it back.</span><span class="ty">Heist</span></li>
+            <li><span class="id">VR-03</span><span class="nm">The Neon Job<span class="ch">Choice</span></span><span class="ds">Lift the hand-bent sign from a Cheung tea house. Return it to Static or sell it back.</span><span class="ty">Heist</span></li>
             <li><span class="id">VR-04</span><span class="nm">Mahjong</span><span class="ds">Madam Cheung's parlour, where each tile you discard is a dialogue choice.</span><span class="ty">Social</span></li>
             <li><span class="id">VR-05</span><span class="nm">Resale</span><span class="ds">Collect from a sneaker reseller. Unlocks the smuggling economy.</span><span class="ty">Drive</span></li>
             <li><span class="id">VR-06</span><span class="nm">Peak at 3 a.m.</span><span class="ds">Race Lucky Cheung up the Peak road in supercars.</span><span class="ty">Race</span></li>
             <li><span class="id">VR-07</span><span class="nm">Top Deck</span><span class="ds">Tail a Meridian courier by tram and minibus, then lift his access card.</span><span class="ty">Stealth</span></li>
             <li><span class="id">VR-08</span><span class="nm">Eleven Seconds</span><span class="ds">Hold Static's rooftop while she uploads the footage. It shows Nami Okabe.</span><span class="ty">Combat</span></li>
-            <li><span class="id">VR-09</span><span class="nm">Dragon Boat<span class="ch">⚖ choice</span></span><span class="ds">A hit during the races. Kill the accountant, or fake his death and hide him.</span><span class="ty">Combat</span></li>
+            <li><span class="id">VR-09</span><span class="nm">Dragon Boat<span class="ch">Choice</span></span><span class="ds">A hit during the races. Kill the accountant, or fake his death and hide him.</span><span class="ty">Combat</span></li>
             <li class="big"><span class="id">VR-10</span><span class="nm">Ferry Crossing</span><span class="ds">Act climax. Peak road to market lanes to harbour, ending on a stolen speedboat.</span><span class="ty">Chase · Boat</span></li>
           </ol>
         </div>
@@ -581,9 +679,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li><span class="id">SL-04</span><span class="nm">Ukay-Ukay</span><span class="ds">Lose a tail by changing your look in a thrift market. Unlocks disguises.</span><span class="ty">Explore</span></li>
             <li><span class="id">SL-05</span><span class="nm">Scrap Metal</span><span class="ds">Find tuned Japanese cars hidden in Meridian boxes labelled as scrap.</span><span class="ty">Stealth</span></li>
             <li><span class="id">SL-06</span><span class="nm">The Village</span><span class="ds">Find Nami. The box held a drive: the real manifest.</span><span class="ty">Explore</span></li>
-            <li><span class="id">SL-07</span><span class="nm">The Arena<span class="ch">⚖ choice</span></span><span class="ds">Bribe or blackmail the Valderramas' police chief at a crowded cockfighting arena.</span><span class="ty">Social</span></li>
+            <li><span class="id">SL-07</span><span class="nm">The Arena<span class="ch">Choice</span></span><span class="ds">Bribe or blackmail the Valderramas' police chief at a crowded cockfighting arena.</span><span class="ty">Social</span></li>
             <li><span class="id">SL-08</span><span class="nm">Procession</span><span class="ds">Cross the city inside a barefoot procession of a million people. No weapons, no running.</span><span class="ty">Stealth</span></li>
-            <li><span class="id">SL-09</span><span class="nm">Rally<span class="ch">⚖ choice</span></span><span class="ds">Search the pier during the rally, or take the hit on Migo. The first forced betrayal.</span><span class="ty">Heist</span></li>
+            <li><span class="id">SL-09</span><span class="nm">Rally<span class="ch">Choice</span></span><span class="ds">Search the pier during the rally, or take the hit on Migo. The first forced betrayal.</span><span class="ty">Heist</span></li>
             <li class="big"><span class="id">SL-10</span><span class="nm">Signal 4</span><span class="ds">Act climax. A crane heist in typhoon winds. You get the drive, but Nami is taken.</span><span class="ty">Heist</span></li>
           </ol>
         </div>
@@ -598,9 +696,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li><span class="id">KG-05</span><span class="nm">Bayshore</span><span class="ds">A 300 km/h run through truck traffic with Aoi in the passenger seat.</span><span class="ty">Race</span></li>
             <li><span class="id">KG-06</span><span class="nm">1987</span><span class="ds">A flashback: play young Pops driving getaway for the old Kuroda-gumi.</span><span class="ty">Drive</span></li>
             <li><span class="id">KG-07</span><span class="nm">Parade Route</span><span class="ds">Smuggle Nami across the city inside a chrome art truck, in plain sight.</span><span class="ty">Stealth</span></li>
-            <li><span class="id">KG-08</span><span class="nm">Tower<span class="ch">⚖ choice</span></span><span class="ds">Copy Shinji's ledger. Leave no trace, or lose the Kuroda ending.</span><span class="ty">Stealth</span></li>
+            <li><span class="id">KG-08</span><span class="nm">Tower<span class="ch">Choice</span></span><span class="ds">Copy Shinji's ledger. Leave no trace, or lose the Kuroda ending.</span><span class="ty">Stealth</span></li>
             <li><span class="id">KG-09</span><span class="nm">Page One</span><span class="ds">A 4 a.m. convenience store. Santos finds her own director in the ledger, then the raid begins.</span><span class="ty">Chase</span></li>
-            <li><span class="id">KG-10</span><span class="nm">Five Calls<span class="ch">⚖ choice</span></span><span class="ds">Every faction calls on the same night. Who you lean toward locks your ending path.</span><span class="ty">Social</span></li>
+            <li><span class="id">KG-10</span><span class="nm">Five Calls<span class="ch">Choice</span></span><span class="ds">Every faction calls on the same night. Who you lean toward locks your ending path.</span><span class="ty">Social</span></li>
             <li class="big"><span class="id">KG-11</span><span class="nm">Wangan Midnight</span><span class="ds">Act climax. The Shinkai crew runs interference across the bay expressway.</span><span class="ty">Chase · Race</span></li>
           </ol>
         </div>
@@ -610,25 +708,28 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <ol class="mlist">
             <li><span class="id">FIN-01</span><span class="nm">The Stacks</span><span class="ds">Climb the container stacks in 200 km/h wind while faction crews fight on deck.</span><span class="ty">Combat</span></li>
             <li><span class="id">FIN-02</span><span class="nm">Engine Room</span><span class="ds">The noise covers everything. Face the Auditor in person.</span><span class="ty">Stealth</span></li>
-            <li class="big"><span class="id">FIN-03</span><span class="nm">The Eye<span class="ch">⚖ choice</span></span><span class="ds">Steer a 400m ship into the eye of the storm. Give the drive away, or burn it all.</span><span class="ty">Boat · Social</span></li>
+            <li class="big"><span class="id">FIN-03</span><span class="nm">The Eye<span class="ch">Choice</span></span><span class="ds">Steer a 400m ship into the eye of the storm. Give the drive away, or burn it all.</span><span class="ty">Boat · Social</span></li>
           </ol>
         </div>
       </div>
 
       <div class="choices">
         <table>
-          <thead><tr><th>Mission</th><th>The choice</th><th>What it changes</th></tr></thead>
+          <caption>How the choices change your ending</caption>
+          <thead><tr><th scope="col">Mission</th><th scope="col">The choice</th><th scope="col">What it changes</th></tr></thead>
           <tbody>
-            <tr><td>The Neon Job</td><td>Return the sign to Static, or sell it to the Cheungs</td><td>Static's trust (needed for Burn It All) or Cheung standing</td></tr>
-            <tr><td>Dragon Boat</td><td>Kill the accountant, or fake his death</td><td>Cheungs up, or Task Force Tide up (he testifies in the Tide ending)</td></tr>
-            <tr><td>The Arena</td><td>Bribe the chief, or blackmail him</td><td>Valderramas up, or Task Force Tide up</td></tr>
-            <tr><td>Rally</td><td>Search the pier, or take the hit on Migo</td><td>The hit pleases the Cheungs and closes the Valderrama ending</td></tr>
-            <tr><td>Tower</td><td>Ghost, or loud</td><td>A loud run closes the Kuroda ending</td></tr>
-            <tr><td>Five Calls</td><td>Who you lean toward</td><td>Locks your ending path</td></tr>
-            <tr><td>The Eye</td><td>The final choice</td><td>Picks your ending</td></tr>
+            <tr><td>The Neon Job</td><td data-label="The choice">Return the sign to Static, or sell it to the Cheungs</td><td data-label="What it changes">Static's trust (needed for Burn It All) or Cheung standing</td></tr>
+            <tr><td>Dragon Boat</td><td data-label="The choice">Kill the accountant, or fake his death</td><td data-label="What it changes">Cheungs up, or Task Force Tide up (he testifies in the Tide ending)</td></tr>
+            <tr><td>The Arena</td><td data-label="The choice">Bribe the chief, or blackmail him</td><td data-label="What it changes">Valderramas up, or Task Force Tide up</td></tr>
+            <tr><td>Rally</td><td data-label="The choice">Search the pier, or take the hit on Migo</td><td data-label="What it changes">The hit pleases the Cheungs and closes the Valderrama ending</td></tr>
+            <tr><td>Tower</td><td data-label="The choice">Ghost, or loud</td><td data-label="What it changes">A loud run closes the Kuroda ending</td></tr>
+            <tr><td>Five Calls</td><td data-label="The choice">Who you lean toward</td><td data-label="What it changes">Locks your ending path</td></tr>
+            <tr><td>The Eye</td><td data-label="The choice">The final choice</td><td data-label="What it changes">Picks your ending</td></tr>
           </tbody>
         </table>
       </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -666,9 +767,40 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       d.y += d.v; d.x -= d.v * 0.18;
       if (d.y > h + 20 || d.x < -20) { drops[i] = make(false); drops[i].x = Math.random() * (w + 60); }
     }
-    requestAnimationFrame(tick);
+    raf = requestAnimationFrame(loop);
   }
-  size(); window.addEventListener('resize', size); requestAnimationFrame(tick);
+  var running = true, raf = 0;
+  function loop() { if (!running) { raf = 0; return; } tick(); }
+  size(); window.addEventListener('resize', size);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) {
+      running = e[0].isIntersecting;
+      if (running && !raf) raf = requestAnimationFrame(loop);
+    }).observe(c);
+  }
+  raf = requestAnimationFrame(loop);
+})();
+
+(function () {
+  var nav = document.querySelector('.index'), hero = document.querySelector('.hero');
+  if (!nav || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (e) { nav.classList.toggle('on', !e[0].isIntersecting); }, { threshold: 0 }).observe(hero);
+  var links = {}; nav.querySelectorAll('a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      nav.querySelectorAll('a').forEach(function (a) { a.removeAttribute('aria-current'); });
+      var a = links[en.target.id]; if (a) a.setAttribute('aria-current', 'true');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+
+  var log = document.getElementById('mission-log');
+  nav.querySelector('a[href="#log"]').addEventListener('click', function () { if (log) log.open = true; });
+  var open = document.querySelector('[data-openlog]');
+  if (open) open.addEventListener('click', function () { if (log) log.open = true; });
+  var play = document.querySelector('[data-play]'), v = document.getElementById('trailer');
+  if (play && v) play.addEventListener('click', function () { setTimeout(function () { try { v.currentTime = 0; v.play(); } catch (e) {} }, 450); });
 })();
 </script>
 
