@@ -313,6 +313,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
 @media (prefers-reduced-motion: reduce) { #rain { display: none; } }
 @media (max-width: 640px) { .choices caption { display: block; width: auto; } }
+/* round 2: glosses, offers grid, wrapping */
+p { text-wrap: pretty; }
+.gloss { font-size: 13px; color: var(--fog); margin: 0; }
+.climax .gloss { color: var(--fog); font-size: 13px; }
+.card .gloss { font-size: 13px; margin-top: -2px; }
+.offers { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .offers { grid-template-columns: repeat(2, minmax(0, 1fr)); } .offers > :last-child { grid-column: 1 / -1; } }
+@media (max-width: 480px) { .offers { grid-template-columns: 1fr; } }
 </style>
 
 <header class="hero">
@@ -459,7 +467,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="cast hunters">
           <article class="card boss"><div class="who"><h3>The Auditor</h3><span class="tag t-x">Meridian Line</span></div><span class="role">Grant Halloway · Asset recovery</span><p>He's soft-spoken, always in grey and never raises his voice. He doesn't kill anyone himself; he just calls the families and tells them where you are.</p></article>
           <article class="card boss"><div class="who"><h3>Madam Cheung</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Matriarch · Finance house</span><p>She turned a triad into a glass-tower finance house and still settles disputes over a mahjong table.</p></article>
-          <article class="card boss"><div class="who"><h3>Kuroda Shinji</h3><span class="tag t-kg">Kaigan</span></div><span class="role">Oyabun turned CEO</span><p>He has erased every tattooed face from his past. The container could erase him.</p></article>
+          <article class="card boss"><div class="who"><h3>Kuroda Shinji</h3><span class="tag t-kg">Kaigan</span></div><span class="role">Oyabun turned CEO</span><p class="gloss">Oyabun: the boss of a yakuza clan.</p><p>He has erased every tattooed face from his past. The container could erase him.</p></article>
           <article class="card"><div class="who"><h3>The Valderramas</h3><span class="tag t-sl">San Lazaro</span></div><span class="role">Senator Aurelio · Migo</span><p>The father owns the docks. The son is running for mayor on a "clean port" campaign paid for with dirty money.</p></article>
           <article class="card"><div class="who"><h3>Lucky Cheung</h3><span class="tag t-vr">Victoria Reach</span></div><span class="role">Heir · Supercar scene</span><p>He races the Peak road at 3 a.m. He's reckless and loud, and he's smarter than he lets on.</p></article>
           <article class="card"><div class="who"><h3>Inspector Santos</h3><span class="tag t-x">Task Force Tide</span></div><span class="role">Leila Santos</span><p>She's sharp, tired and incorruptible, and she's the only cop who believes Ren is innocent. That makes her dangerous to everyone.</p></article>
@@ -529,6 +537,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </ol>
           <div class="climax">
             <header><h3>Signal 4</h3><span class="mono">Act climax</span></header>
+            <p class="gloss">Signal 4: the second-highest typhoon warning. Ports shut and everyone stays indoors.</p>
             <p>The worst typhoon in a decade hits the city. Power and cameras die, and the port closes. Ren pulls a container out of the Valderrama warehouse with a stolen crane in 150 km/h wind and gets the drive, but Nami is taken. A note is left at the bar: <i>"Bring it to Kaigan. K."</i></p>
           </div>
         </div>
@@ -560,6 +569,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           </ol>
           <div class="climax">
             <header><h3>Wangan Midnight</h3><span class="mono">Act climax</span></header>
+            <p class="gloss">Wangan: the bay expressway, a long straight road that street racers own after midnight.</p>
             <p>Everyone moves on the same night. The whole Shinkai crew runs interference across the bay expressway while Ren carries the drive to the docked <i>Meridian Aurora</i>, the only way out of the country.</p>
           </div>
         </div>
